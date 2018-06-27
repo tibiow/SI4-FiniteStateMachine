@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" name="domac" qt:editorversion="4.2.1" xmlns:qt="http://www.qt.io/2015/02/scxml-ext">
+    <parallel id="Parallel_1">
+        <qt:editorinfo scenegeometry="57.81;72.94;-18.84;-29.17;974.17;514.11" geometry="57.81;72.94;-76.65;-102.11;974.17;514.11"/>
+        <state id="State_4">
+            <qt:editorinfo scenegeometry="65.24;147.26;1.16;82.89;215.08;357.72" geometry="7.43;74.32;-64.08;-64.37;215.08;357.72"/>
+            <state id="L1_Off">
+                <qt:editorinfo scenegeometry="91.36;194.35;31.36;144.35;120;100" geometry="26.12;47.09;-60;-50;120;100"/>
+                <transition type="external" event="switch_L1" target="L1_On">
+                    <qt:editorinfo startTargetFactors="72.81;93.97" movePoint="33.92;-3.08" endTargetFactors="74.18;11.33"/>
+                </transition>
+            </state>
+            <state id="L1_On">
+                <qt:editorinfo scenegeometry="84.89;370.61;24.89;320.61;120;100" geometry="19.65;223.35;-60;-50;120;100"/>
+                <transition type="external" target="L1_Off" event="switch_L1">
+                    <qt:editorinfo startTargetFactors="28.25;9.48" endTargetFactors="30.35;90.75"/>
+                </transition>
+                <transition type="external" event="switch_all" target="L1_Off">
+                    <qt:editorinfo endTargetFactors="48.66;89.36"/>
+                </transition>
+            </state>
+        </state>
+        <state id="State_5">
+            <qt:editorinfo scenegeometry="309.45;164.34;224.67;60.33;220.79;396.01" geometry="251.64;91.40;-84.78;-104.01;220.79;396.01"/>
+            <state id="State_8">
+                <qt:editorinfo scenegeometry="304.67;184.04;244.67;134.04;120;100" geometry="-4.78;19.70;-60;-50;120;100"/>
+            </state>
+            <state id="State_9">
+                <qt:editorinfo scenegeometry="305.91;369.34;245.91;319.34;120;100" geometry="-3.54;205;-60;-50;120;100"/>
+            </state>
+        </state>
+        <state id="State_6">
+            <qt:editorinfo scenegeometry="541.45;149.66;459.71;63.98;214.74;376.68" geometry="483.64;76.72;-81.74;-85.68;214.74;376.68"/>
+            <state id="State_10">
+                <qt:editorinfo scenegeometry="512.35;172.85;452.35;122.85;120;100" geometry="-1.74;26.92;-60;-50;120;100"/>
+            </state>
+            <state id="State_11">
+                <qt:editorinfo scenegeometry="540.95;318.35;480.95;268.35;120;100" geometry="-0.50;168.69;-60;-50;120;100"/>
+            </state>
+        </state>
+        <state id="State_7">
+            <qt:editorinfo scenegeometry="765.16;157.12;695.98;100.93;223.18;341.19" geometry="707.35;84.18;-69.18;-56.19;223.18;341.19"/>
+            <state id="State_12">
+                <qt:editorinfo scenegeometry="753.60;196.48;693.60;146.48;120;100" geometry="10.82;54.28;-60;-50;120;100"/>
+            </state>
+            <state id="State_13">
+                <qt:editorinfo scenegeometry="802.09;338.25;742.09;288.25;120;100" geometry="20.76;196.05;-60;-50;120;100"/>
+            </state>
+        </state>
+    </parallel>
+</scxml>

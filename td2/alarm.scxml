@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="alarm" qt:editorversion="4.2.1">
+    <state id="standby">
+        <qt:editorinfo geometry="153.11;246.66;-161.52;-50;221.52;100" scenegeometry="153.11;246.66;-8.41;196.66;221.52;100"/>
+        <transition type="external" event="stopAutoCheck" target="stop">
+            <qt:editorinfo movePoint="5;0" endTargetFactors="13.97;46.84"/>
+            <log expr="stopAutoCheck"/>
+            <send event="stopDetection"/>
+        </transition>
+    </state>
+    <state id="stop">
+        <qt:editorinfo geometry="438.13;246.66;-60;-50;120;100" scenegeometry="438.13;246.66;378.13;196.66;120;100"/>
+        <transition type="external" event="restartAutoCheck" target="standby">
+            <qt:editorinfo movePoint="-8;18" endTargetFactors="90.52;76.16" startTargetFactors="9.56;70.83"/>
+            <send event="checkPresence"/>
+            <log expr="restartAutoCheck"/>
+        </transition>
+    </state>
+</scxml>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="chaufManager" qt:editorversion="4.2.1">
+    <state id="automatic">
+        <qt:editorinfo geometry="82.70;-2.42;-186.61;-46.77;246.04;112.77" scenegeometry="82.70;-2.42;-103.91;-49.19;246.04;112.77"/>
+        <transition type="external" event="stopAutomaticChauff" target="manual">
+            <qt:editorinfo endTargetFactors="3.88;44.14" startTargetFactors="92.05;36.92"/>
+            <send event="stopChauffModel"/>
+        </transition>
+        <transition type="internal" event="updateChauff" target="automatic">
+            <send event="refreshChauffValue"/>
+        </transition>
+    </state>
+    <state id="manual">
+        <qt:editorinfo geometry="489.48;1.97;-167.68;-112.55;535.45;235.55" scenegeometry="489.48;1.97;321.80;-110.58;535.45;235.55"/>
+        <transition type="external" event="startAutomaticChauff" target="automatic">
+            <qt:editorinfo endTargetFactors="89.43;76.62" startTargetFactors="3.09;61.23"/>
+            <log expr="startAutomaticLum"/>
+            <send event="updateChauffConsigne"/>
+        </transition>
+        <state id="OnState">
+            <qt:editorinfo geometry="9.01;5.22;-156.69;-50;216.69;100" scenegeometry="498.49;7.19;341.80;-42.81;216.69;100"/>
+            <transition type="external" event="toggleChauff" target="OffState">
+                <qt:editorinfo movePoint="11.89;-11.89" endTargetFactors="7.93;21.80" startTargetFactors="89.71;27.19"/>
+                <send event="minPowerChauff"/>
+                <send event="refreshChauffValue"/>
+            </transition>
+            <transition type="internal" event="updateChauff" target="OnState">
+                <send event="refreshChauffValue"/>
+            </transition>
+        </state>
+        <state id="OffState">
+            <qt:editorinfo geometry="279.93;5.22;-142.05;-50;202.05;100" scenegeometry="769.41;7.19;627.36;-42.81;202.05;100"/>
+            <transition type="external" event="toggleChauff" target="OnState">
+                <qt:editorinfo movePoint="18.69;41.46" endTargetFactors="86.03;74.71" startTargetFactors="15.44;81.67"/>
+                <send event="getCurrentConsigneChauff"/>
+                <send event="updateChauff"/>
+            </transition>
+        </state>
+    </state>
+</scxml>

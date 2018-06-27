@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" datamodel="ecmascript" name="CalculatorStateMachine" qt:editorversion="4.2.1" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" initial="wrapper">
+    <qt:editorinfo initialGeometry="-890.45;-577.17;-20;-20;40;40"/>
+    <datamodel>
+        <data id="long_expr"/>
+        <data id="short_expr"/>
+        <data id="res"/>
+    </datamodel>
+    <state id="wrapper" initial="on">
+        <qt:editorinfo scenegeometry="-45.47;2.21;-855.92;-524.96;1093.16;999.52" geometry="-45.47;2.21;-810.45;-527.17;1093.16;999.52"/>
+        <state id="on" initial="ready">
+            <qt:editorinfo scenegeometry="-30;-30;-666;-427.19;898.71;879.55" geometry="0;-30;-636;-397.19;898.71;879.55"/>
+            <onentry>
+                <send event="DISPLAY.UPDATE"/>
+            </onentry>
+            <state id="ready" initial="begin">
+                <qt:editorinfo scenegeometry="-390;-30;-560;-132.42;270;207.06" geometry="-360;-0;-170;-102.42;270;207.06"/>
+                <state id="begin">
+                    <qt:editorinfo scenegeometry="-480;-30;-540;-80;120;100" geometry="-90;-0;-60;-50;120;100"/>
+                    <transition type="internal" event="OPER.MINUS" target="negated1"/>
+                    <onentry>
+                        <assign location="long_expr" expr="''"/>
+                        <assign location="short_expr" expr="0"/>
+                        <assign location="res" expr="0"/>
+                        <send event="DISPLAY.UPDATE"/>
+                    </onentry>
+                </state>
+                <state id="result">
+                    <qt:editorinfo scenegeometry="-370;4.64;-430;-45.36;120;100" geometry="20;34.64;-60;-50;120;100"/>
+                </state>
+                <transition type="internal" event="OPER" target="opEntered"/>
+                <transition type="internal" event="DIGIT.0" target="zero1">
+                    <assign location="short_expr" expr="''"/>
+                </transition>
+                <transition type="internal" event="DIGIT" target="int1">
+                    <assign location="short_expr" expr="''"/>
+                </transition>
+                <transition type="internal" event="POINT" target="frac1">
+                    <assign location="short_expr" expr="''"/>
+                </transition>
+            </state>
+            <state id="negated1">
+                <qt:editorinfo scenegeometry="-86.64;39.94;-146.64;-10.06;120;100" geometry="-56.64;69.94;-60;-50;120;100"/>
+                <onentry>
+                    <assign location="short_expr" expr="'-'"/>
+                    <send event="DISPLAY.UPDATE"/>
+                </onentry>
+                <transition type="internal" event="DIGIT.0" target="zero1"/>
+                <transition type="internal" event="DIGIT" target="int1"/>
+                <transition type="internal" event="POINT" target="frac1"/>
+            </state>
+            <state id="operand1">
+                <qt:editorinfo scenegeometry="42.77;312.35;-234.54;123.84;357.31;308.51" geometry="72.77;342.35;-277.31;-188.51;357.31;308.51"/>
+                <state id="zero1">
+                    <qt:editorinfo scenegeometry="42.77;232.35;-17.23;182.35;120;100" geometry="0;-80;-60;-50;120;100"/>
+                    <transition type="internal" event="DIGIT" cond="_event.name != 'DIGIT.0'" target="int1"/>
+                    <transition type="internal" event="POINT" target="frac1"/>
+                </state>
+                <state id="int1">
+                    <qt:editorinfo scenegeometry="-107.23;312.35;-214.54;262.35;147.31;100" geometry="-150;-0;-107.31;-50;147.31;100"/>
+                    <transition type="internal" event="POINT" target="frac1"/>
+                    <transition type="internal" event="DIGIT">
+                        <assign location="short_expr" expr="short_expr+_event.name.substr(_event.name.lastIndexOf('.')+1)"/>
+                        <send event="DISPLAY.UPDATE"/>
+                    </transition>
+                    <onentry>
+                        <assign location="short_expr" expr="short_expr+_event.name.substr(_event.name.lastIndexOf('.')+1)"/>
+                        <send event="DISPLAY.UPDATE"/>
+                    </onentry>
+                </state>
+                <state id="frac1">
+                    <qt:editorinfo scenegeometry="42.77;362.35;-64.54;312.35;147.31;100" geometry="-0;50;-107.31;-50;147.31;100"/>
+                    <onentry>
+                        <assign location="short_expr" expr="short_expr+'.'"/>
+                        <send event="DISPLAY.UPDATE"/>
+                    </onentry>
+                    <transition type="internal" event="DIGIT">
+                        <assign location="short_expr" expr="short_expr+_event.name.substr(_event.name.lastIndexOf('.')+1)"/>
+                        <send event="DISPLAY.UPDATE"/>
+                    </transition>
+                </state>
+                <transition type="internal" event="OPER" target="opEntered"/>
+            </state>
+            <state id="opEntered">
+                <qt:editorinfo scenegeometry="130.38;39.94;70.38;-10.06;120;100" geometry="160.38;69.94;-60;-50;120;100"/>
+                <transition type="internal" event="OPER.MINUS" target="negated2"/>
+                <transition type="internal" event="POINT" target="frac2"/>
+                <transition type="internal" event="DIGIT.0" target="zero2"/>
+                <transition type="internal" event="DIGIT" target="int2"/>
+                <onentry>
+                    <raise event="CALC.SUB"/>
+                    <send target="#_internal" event="OP.INSERT">
+                        <param name="operator" expr="_event.name"/>
+                    </send>
+                </onentry>
+            </state>
+            <state id="negated2">
+                <qt:editorinfo scenegeometry="152.71;-111.35;92.71;-161.35;120;100" geometry="182.71;-81.35;-60;-50;120;100"/>
+                <onentry>
+                    <assign location="short_expr" expr="'-'"/>
+                    <send event="DISPLAY.UPDATE"/>
+                </onentry>
+                <transition type="internal" event="DIGIT.0" target="zero2"/>
+                <transition type="internal" event="DIGIT" target="int2"/>
+                <transition type="internal" event="POINT" target="frac2"/>
+            </state>
+            <state id="operand2">
+                <qt:editorinfo scenegeometry="1.06;-145.91;-276.25;-334.42;357.31;308.51" geometry="31.06;-115.91;-277.31;-188.51;357.31;308.51"/>
+                <state id="zero2">
+                    <qt:editorinfo scenegeometry="1.06;-225.91;-58.94;-275.91;120;100" geometry="0;-80;-60;-50;120;100"/>
+                    <transition type="internal" event="DIGIT" cond="_event.name != 'DIGIT.0'" target="int2"/>
+                    <transition type="internal" event="POINT" target="frac2"/>
+                </state>
+                <state id="int2">
+                    <qt:editorinfo scenegeometry="-148.94;-145.91;-256.25;-195.91;147.31;100" geometry="-150;-0;-107.31;-50;147.31;100"/>
+                    <transition type="internal" event="DIGIT">
+                        <assign location="short_expr" expr="short_expr+_event.name.substr(_event.name.lastIndexOf('.')+1)"/>
+                        <send event="DISPLAY.UPDATE"/>
+                    </transition>
+                    <onentry>
+                        <assign location="short_expr" expr="short_expr+_event.name.substr(_event.name.lastIndexOf('.')+1)"/>
+                        <send event="DISPLAY.UPDATE"/>
+                    </onentry>
+                    <transition type="internal" event="POINT" target="frac2"/>
+                </state>
+                <state id="frac2">
+                    <qt:editorinfo scenegeometry="1.06;-95.91;-106.25;-145.91;147.31;100" geometry="-0;50;-107.31;-50;147.31;100"/>
+                    <onentry>
+                        <assign location="short_expr" expr="short_expr +'.'"/>
+                        <send event="DISPLAY.UPDATE"/>
+                    </onentry>
+                    <transition type="internal" event="DIGIT">
+                        <assign location="short_expr" expr="short_expr +_event.name.substr(_event.name.lastIndexOf('.')+1)"/>
+                        <send event="DISPLAY.UPDATE"/>
+                    </transition>
+                </state>
+                <transition type="internal" event="OPER" target="opEntered">
+                    <raise event="CALC.SUB"/>
+                    <raise event="OP.INSERT"/>
+                </transition>
+                <transition type="internal" event="EQUALS" target="result">
+                    <raise event="CALC.SUB"/>
+                    <raise event="CALC.DO"/>
+                </transition>
+            </state>
+            <transition type="internal" event="C" target="on"/>
+        </state>
+        <transition type="internal" event="CALC.DO">
+            <assign location="short_expr" expr="''+ res"/>
+            <assign location="long_expr" expr="''"/>
+            <assign location="res" expr="0"/>
+        </transition>
+        <transition type="internal" event="CALC.SUB">
+            <if cond="short_expr!=''">
+                <assign location="long_expr" expr="long_expr+'('+short_expr+')'"/>
+            </if>
+            <assign location="res" expr="eval(long_expr)"/>
+            <assign location="short_expr" expr="''"/>
+            <send event="DISPLAY.UPDATE"/>
+            <if/>
+        </transition>
+        <transition type="internal" event="DISPLAY.UPDATE">
+            <log label="'result'" expr="short_expr==''?res:short_expr"/>
+            <send event="updateDisplay">
+                <param name="display" expr="short_expr==''?res:short_expr"/>
+            </send>
+        </transition>
+        <transition type="internal" event="OP.INSERT">
+            <log expr="_event.data.operator"/>
+            <if cond="_event.data.operator == 'OPER.PLUS'">
+                <assign location="long_expr" expr="long_expr+'+'"/>
+                <elseif cond="_event.data.operator=='OPER.MINUS'"/>
+                <assign location="long_expr" expr="long_expr+'-'"/>
+                <elseif cond="_event.data.operator=='OPER.STAR'"/>
+                <assign location="long_expr" expr="long_expr+'*'"/>
+                <elseif cond="_event.data.operator=='OPER.DIV'"/>
+                <assign location="long_expr" expr="long_expr+'/'"/>
+            </if>
+        </transition>
+    </state>
+</scxml>

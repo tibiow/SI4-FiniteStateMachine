@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="LumManager" qt:editorversion="4.2.1" datamodel="ecmascript">
+    <state id="automatic">
+        <qt:editorinfo geometry="26.94;105.25;-141.28;-64.06;348.71;250.06" scenegeometry="26.94;105.25;-114.34;41.19;348.71;250.06"/>
+        <transition type="external" event="stopAutomaticLum" target="manual">
+            <qt:editorinfo endTargetFactors="3.78;53.48" startTargetFactors="95.34;55.93"/>
+            <send event="maxPowerLight"/>
+            <assign location="automaticMode" expr="false"/>
+        </transition>
+        <transition type="internal" event="updateLum" target="automatic">
+            <send event="refreshLumValue"/>
+        </transition>
+    </state>
+    <state id="manual" initial="OnState">
+        <qt:editorinfo geometry="439.88;161;-80.53;-112.55;459.81;235.55" scenegeometry="439.88;161;359.35;48.45;459.81;235.55"/>
+        <transition type="external" event="startAutomaticLum" target="automatic">
+            <qt:editorinfo movePoint="7.19;61.85" endTargetFactors="89.43;76.62" startTargetFactors="3.57;75.23"/>
+            <assign location="automaticMode" expr="true"/>
+            <send event="updateLumConsigne"/>
+        </transition>
+        <state id="OffState">
+            <qt:editorinfo geometry="299.28;5.22;-60;-50;120;100" scenegeometry="739.16;166.22;679.16;116.22;120;100"/>
+            <transition type="external" event="toggleLight" target="OnState">
+                <qt:editorinfo movePoint="2.93;33.78" endTargetFactors="81.36;84.48" startTargetFactors="15.44;81.67"/>
+                <send event="maxPowerLight"/>
+                <send event="refreshLumValue"/>
+            </transition>
+        </state>
+        <state id="OnState">
+            <qt:editorinfo geometry="104.05;5.22;-60;-50;120;100" scenegeometry="543.93;166.22;483.93;116.22;120;100"/>
+            <transition type="external" event="toggleLight" target="OffState">
+                <qt:editorinfo endTargetFactors="7.93;21.80" startTargetFactors="89.71;27.19"/>
+                <send event="minPowerLight"/>
+                <send event="refreshLumValue"/>
+            </transition>
+        </state>
+    </state>
+</scxml>

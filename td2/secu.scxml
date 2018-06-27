@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="secu" qt:editorversion="4.2.1" datamodel="ecmascript">
+    <state id="NormalState">
+        <qt:editorinfo geometry="282.68;163.21;-294.92;-206.85;666.92;482.90" scenegeometry="282.68;163.21;-12.24;-43.64;666.92;482.90"/>
+        <state id="Disable">
+            <qt:editorinfo geometry="-128.28;-64.41;-60;-50;120;100" scenegeometry="154.40;98.80;94.40;48.80;120;100"/>
+            <transition type="external" event="enableAlarm" target="Enable">
+                <qt:editorinfo endTargetFactors="11.40;4.57"/>
+                <send event="activateIdle"/>
+                <log expr="&quot;enableAlarm&quot;" label="&quot;&quot;"/>
+            </transition>
+        </state>
+        <state id="Enable">
+            <qt:editorinfo geometry="-107.80;122.04;-167.12;-53.71;626.92;187.72" scenegeometry="174.88;285.25;7.76;231.54;626.92;187.72"/>
+            <state id="RingOff">
+                <qt:editorinfo geometry="14.40;48.31;-161.52;-50;264.52;100" scenegeometry="189.28;333.56;27.76;283.56;264.52;100"/>
+                <transition type="external" event="presenceDetected" target="RingOn">
+                    <qt:editorinfo endTargetFactors="10.31;26.29" startTargetFactors="94.41;30.23"/>
+                    <send event="ringTheBell"/>
+                    <log expr="&quot;presenceDetected&quot;" label="&quot;&quot;"/>
+                    <send event="stopAutoCheck"/>
+                </transition>
+            </state>
+            <state id="RingOn">
+                <qt:editorinfo geometry="311.36;47.55;-60;-50;175;103" scenegeometry="486.24;332.80;426.24;282.80;175;103"/>
+                <transition type="external" event="stopAlarm" target="RingOff">
+                    <qt:editorinfo endTargetFactors="92.74;68.98" startTargetFactors="8.38;65.80"/>
+                    <send event="resetAlarm"/>
+                    <log expr="&quot;stopAlarm&quot;" label="&quot;&quot;"/>
+                </transition>
+            </state>
+            <transition type="external" event="disableAlarm" target="Disable">
+                <qt:editorinfo endTargetFactors="73.43;86.32"/>
+                <log expr="&quot;disableAlarm&quot;" label="&quot;&quot;"/>
+                <send event="stopAlarm"/>
+            </transition>
+        </state>
+        <transition type="external" event="windowOpen" target="SomethingWrong">
+            <qt:editorinfo movePoint="-55.47;5.33" endTargetFactors="10.19;22.42" startTargetFactors="22.44;98.40"/>
+            <assign location="windowBool" expr="windowBool+1"/>
+            <log label="&quot;&quot;" expr="&quot;windowOpen&quot;"/>
+        </transition>
+    </state>
+    <state id="SomethingWrong">
+        <qt:editorinfo geometry="161.08;580.29;-152.56;-50;356.56;116" scenegeometry="161.08;580.29;8.52;530.29;356.56;116"/>
+        <transition type="external" target="NormalState" cond="windowBool==0">
+            <qt:editorinfo endTargetFactors="35.45;98.01"/>
+            <log label="&quot;&quot;" expr="&quot;getting Back To NormalState&quot;"/>
+        </transition>
+        <transition type="internal" event="windowClose" target="SomethingWrong">
+            <qt:editorinfo endTargetFactors="28.85;75.78"/>
+            <assign location="windowBool" expr="windowBool-1"/>
+        </transition>
+        <transition type="external" event="windowOpen" target="SomethingWrong">
+            <qt:editorinfo endTargetFactors="26.54;73.89"/>
+            <assign location="windowBool" expr="windowBool+1"/>
+        </transition>
+    </state>
+    <datamodel>
+        <data id="windowBool" expr="0"/>
+    </datamodel>
+</scxml>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="fenetre" qt:editorversion="4.2.1">
+    <state id="windowClose">
+        <qt:editorinfo geometry="77.08;169.57;-60;-50;120;100" scenegeometry="77.08;169.57;17.08;119.57;120;100"/>
+        <transition type="external" event="openWindow" target="windowOpen">
+            <qt:editorinfo endTargetFactors="13.73;34.06" startTargetFactors="88.97;40.57"/>
+            <send event="windowIsOpen"/>
+        </transition>
+    </state>
+    <state id="windowOpen">
+        <qt:editorinfo geometry="363.82;169.57;-60;-50;120;100" scenegeometry="363.82;169.57;303.82;119.57;120;100"/>
+        <transition type="external" event="closeWindow" target="windowClose">
+            <qt:editorinfo movePoint="0;1.03" endTargetFactors="71.16;80.13" startTargetFactors="13.24;69.94"/>
+            <send event="windowIsClose"/>
+        </transition>
+    </state>
+</scxml>

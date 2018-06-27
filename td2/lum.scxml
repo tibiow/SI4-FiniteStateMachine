@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="lum" qt:editorversion="4.2.1">
+    <parallel id="Parallel_1">
+        <qt:editorinfo geometry="119.17;296.82;-68.25;-62.53;518.25;230.05" scenegeometry="119.17;296.82;50.92;234.29;518.25;230.05"/>
+        <state id="lowerState">
+            <qt:editorinfo geometry="98.23;76.96;-146.48;-50;166.48;100" scenegeometry="217.40;373.78;70.92;323.78;166.48;100"/>
+            <transition type="internal" event="LumIsLower" target="lowerState">
+                <send event="lightDown"/>
+            </transition>
+        </state>
+        <state id="upperState">
+            <qt:editorinfo geometry="363.22;80.52;-146.48;-50;166.48;100" scenegeometry="482.39;377.34;335.91;327.34;166.48;100"/>
+            <transition type="internal" event="LumIsUpper" target="upperState">
+                <qt:editorinfo endTargetFactors="24.43;33.22"/>
+                <send event="lightUp"/>
+            </transition>
+        </state>
+    </parallel>
+</scxml>

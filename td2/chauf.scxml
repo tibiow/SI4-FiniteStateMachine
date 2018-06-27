@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="chauf" qt:editorversion="4.2.1">
+    <parallel id="chauff">
+        <qt:editorinfo scenegeometry="133.61;121.27;33.92;71.27;549.69;265" geometry="133.61;121.27;-99.69;-50;549.69;265"/>
+        <state id="upperState">
+            <qt:editorinfo scenegeometry="215.82;203.77;58.24;153.77;217.58;100" geometry="82.21;82.50;-157.58;-50;217.58;100"/>
+            <transition type="external" event="chauffIsUpper" target="upperState">
+                <send event="chauffUp"/>
+            </transition>
+        </state>
+        <state id="lowerState">
+            <qt:editorinfo scenegeometry="485.09;203.77;325.56;153.77;219.53;100" geometry="351.48;82.50;-159.53;-50;219.53;100"/>
+            <transition type="external" event="chauffIsLower" target="lowerState">
+                <send event="chauffDown"/>
+            </transition>
+        </state>
+    </parallel>
+</scxml>
